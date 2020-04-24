@@ -1,0 +1,131 @@
+public class Rental {
+   private String contractNumber;
+private int rentalTimeHours;
+private int rentalTimeMins;
+
+  
+   public String getContractNumber() {
+       return contractNumber;
+   }
+
+   public void setContractNumber(String contractNumber) {
+       this.contractNumber = contractNumber;
+   }
+   public int getRentalTimeHours() {
+       return rentalTimeHours;
+   }
+
+
+   public void setRentalTimeHours(int rentalTimeHours) {
+       this.rentalTimeHours = rentalTimeHours;
+   }
+
+   public int getRentalTimeMins() {
+       return rentalTimeMins;
+   }
+
+   public void setRentalTimeMins(int rentalTimeMins) {
+       this.rentalTimeMins = rentalTimeMins;
+   }
+  
+   public double calculateRentalPrice(){
+      
+       int pricePerHour = 40; // $40
+       int pricePerMinute = 1; // $1
+      
+       int minutesThatCount; // up-to and including 40 minutes
+
+       if(this.getRentalTimeMins()<=40){
+           minutesThatCount = this.getRentalTimeMins(); // minutes
+       }else{
+           minutesThatCount = 40; // minutes
+       }
+
+       int HoursPrice = this.getRentalTimeHours()*pricePerHour ; // $
+       int MinutesPrice = minutesThatCount*pricePerMinute; //$
+       int totalRentalPrice = HoursPrice + MinutesPrice; //$
+      
+   return totalRentalPrice;
+   }
+  
+}
+
+//_______________________________
+
+import java.util.Scanner;
+
+
+public class RentalDemo {
+
+   // a method that accepts two Rental objects and returns the one with the longer rental time.
+   public static Rental getRentalWithLongerTime(Rental rental1, Rental rental2){
+       double totalTimeRental1 = rental1.getRentalTimeHours()+ rental1.getRentalTimeMins()/60;
+       double totalTimeRental2 = rental2.getRentalTimeHours()+ rental2.getRentalTimeMins()/60;
+      
+       if(totalTimeRental1>= totalTimeRental2)
+           return rental1;              
+       else
+           return rental2;
+       }
+  
+   public static void main(String[] args) {
+  
+       // Instantiating three Rental objects, and prompting the user for values for each object
+       Rental object1 = new Rental();
+       Rental object2 = new Rental();
+       Rental object3 = new Rental();
+      
+       String contractNo;
+       int hours, minutes;
+       Scanner input = new Scanner(System.in);
+      
+       System.out.println("RENTAL 1: ");
+       System.out.println("Enter contract number: "); contractNo = input.nextLine();
+       System.out.println("Enter rental hours: "); hours = input.nextInt();
+       System.out.println("Enter rental minutes: ");minutes = input.nextInt();
+       object1.setContractNumber(contractNo);object1.setRentalTimeHours(hours);object1.setRentalTimeMins(minutes);
+      
+       System.out.println("RENTAL 2: ");input.nextLine();
+       System.out.println("Enter contract number: "); contractNo = input.nextLine();
+       System.out.println("Enter rental hours: "); hours = input.nextInt();
+       System.out.println("Enter rental minutes: ");minutes = input.nextInt();
+       object2.setContractNumber(contractNo);object2.setRentalTimeHours(hours);object2.setRentalTimeMins(minutes);
+      
+      
+       System.out.println("RENTAL 3: ");input.nextLine();
+       System.out.println("Enter contract number: "); contractNo = input.nextLine();
+       System.out.println("Enter rental hours: "); hours = input.nextInt();
+       System.out.println("Enter rental minutes: ");minutes = input.nextInt();
+       object3.setContractNumber(contractNo);object3.setRentalTimeHours(hours);object3.setRentalTimeMins(minutes);
+      
+       //displaying entered details with corresponding rental prices
+       System.out.println("Rental [Contract number: "+object1.getContractNumber()+", Time: "+object1.getRentalTimeHours()+"h+"+object1.getRentalTimeMins()+"m, Price: $"+object1.calculateRentalPrice() +"]");      
+       System.out.println("Rental [Contract number: "+object2.getContractNumber()+", Time: "+object2.getRentalTimeHours()+"h+"+object2.getRentalTimeMins()+"m, Price: $"+object2.calculateRentalPrice() +"]");      
+       System.out.println("Rental [Contract number: "+object3.getContractNumber()+", Time: "+object3.getRentalTimeHours()+"h+"+object3.getRentalTimeMins()+"m, Price: $"+object3.calculateRentalPrice() +"]");      
+  
+       /*
+       * Calling the method three times-once with each pair of instantiated Rentals-and display the contract number and time
+       * in hours and minutes for each argument as well as the contract number of the longer Rental
+       *
+       * */
+      
+       System.out.print("\nCOMPARING: ");
+       System.out.print("["+object1.getContractNumber()+", Time: "+object1.getRentalTimeHours()+"h+"+object1.getRentalTimeMins()+"m] and ");
+       System.out.print("["+object2.getContractNumber()+", Time: "+object2.getRentalTimeHours()+"h+"+object2.getRentalTimeMins()+"m], ");
+       System.out.print("Rental with longer rental time is "+getRentalWithLongerTime(object1,object2).getContractNumber());
+  
+       System.out.print("\nCOMPARING: ");
+       System.out.print("["+object2.getContractNumber()+", Time: "+object2.getRentalTimeHours()+"h+"+object2.getRentalTimeMins()+"m] and ");
+       System.out.print("["+object3.getContractNumber()+", Time: "+object3.getRentalTimeHours()+"h+"+object3.getRentalTimeMins()+"m], ");
+       System.out.print("Rental with longer rental time is "+getRentalWithLongerTime(object2,object3).getContractNumber());
+  
+       System.out.print("\nCOMPARING: ");
+       System.out.print("["+object1.getContractNumber()+", Time: "+object1.getRentalTimeHours()+"h+"+object1.getRentalTimeMins()+"m] and ");
+       System.out.print("["+object3.getContractNumber()+", Time: "+object3.getRentalTimeHours()+"h+"+object3.getRentalTimeMins()+"m], ");
+       System.out.print("Rental with longer rental time is "+getRentalWithLongerTime(object1,object3).getContractNumber());
+  
+  
+  
+   }
+
+}
